@@ -319,7 +319,7 @@ handleAction handleAction' handleEvent = case _ of
         preventIt
         for_ st.highlightedIndex \ix ->
           handle $ Select (Index ix) Nothing
-      otherKey -> pure unit
+      _otherKey -> pure unit
 
   PreventClick ev ->
     H.liftEffect $ preventDefault $ ME.toEvent ev
