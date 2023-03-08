@@ -10,7 +10,6 @@ import Prelude
 import Control.Monad.Free (liftF)
 import Data.Const (Const)
 import Data.Maybe (Maybe(..), fromMaybe)
-import Data.Symbol (SProxy(..))
 import Data.Time.Duration (Milliseconds)
 import Data.Traversable (for_, traverse, traverse_)
 import Effect.Aff (Fiber, delay, error, forkAff, killFiber)
@@ -24,6 +23,7 @@ import Halogen.HTML as HH
 import Halogen.Query.ChildQuery (ChildQueryBox)
 import Prim.Row as Row
 import Record.Builder as Builder
+import Type.Proxy (Proxy(..))
 import Unsafe.Coerce (unsafeCoerce)
 import Web.Event.Event (preventDefault)
 import Web.HTML.HTMLElement as HTMLElement
@@ -201,11 +201,11 @@ component mkInput spec = H.mkComponent
   initialState = Builder.build pipeline
     where
     pipeline =
-      Builder.modify (SProxy :: _ "search") (fromMaybe "")
-        >>> Builder.modify (SProxy :: _ "debounceTime") (fromMaybe mempty)
-        >>> Builder.insert (SProxy :: _ "debounceRef") Nothing
-        >>> Builder.insert (SProxy :: _ "visibility") Off
-        >>> Builder.insert (SProxy :: _ "highlightedIndex") Nothing
+      Builder.modify (Proxy :: _ "search") (fromMaybe "")
+        >>> Builder.modify (Proxy :: _ "debounceTime") (fromMaybe mempty)
+        >>> Builder.insert (Proxy :: _ "debounceRef") Nothing
+        >>> Builder.insert (Proxy :: _ "visibility") Off
+        >>> Builder.insert (Proxy :: _ "highlightedIndex") Nothing
 
 handleQuery
   :: forall st query action slots msg m a
